@@ -1,32 +1,24 @@
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class Peer extends Thread {
-
+//this class indicates both UDP server and client
+public class UDP implements Runnable {
     private DatagramSocket udpsocket;
     private InetAddress serverAddress;
+    private int udpport;
+
     private Scanner scanner;
-    private String name;
 
-    public int tcpport;
-    public int udpport;
-
-    //first index indicates if is in discovery faze, next one indicates
-    //if is in sending file state and the next is for servicing the user
-    private boolean[] state = new boolean[3];
     private byte[] reading_buffer = new byte[256];
     private byte[] writing_buffer = new byte[256];
 
-    //for initializing the peer
-    public Peer(int udpport,String destination,String name) throws SocketException, UnknownHostException {
+    //initializing UDP Part of a Peer
+    public UDP(int udpport,String address) throws UnknownHostException {
         this.udpport=udpport;
-        this.udpsocket = new DatagramSocket(this.udpport);
-        this.serverAddress=InetAddress.getByName(destination);
-        this.name=name;
-    }
-
-    public String getname(){
-        return this.name;
+        this.serverAddress=InetAddress.getByName(address);
     }
 
     //udp server making connection
@@ -62,5 +54,17 @@ public class Peer extends Thread {
         }
     }
 
+    public void run(){
+        try {
+            udpserver();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            udpclient();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
