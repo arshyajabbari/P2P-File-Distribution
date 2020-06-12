@@ -23,7 +23,7 @@ public class UDP implements Runnable {
 
     //udp server making connection
     public void udpserver() throws Exception {
-        System.out.println("-- Running Server at " + InetAddress.getLocalHost() + "--");
+        System.out.println("-- Running UDP Server at " + InetAddress.getLocalHost() + "--");
         String msg;
 
         while (true) {
