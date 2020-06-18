@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class User_Request {
     private String fileAddress;
 
+    //user asks for a file
     public String giveAddress(){
         String Address;
         Scanner input= new Scanner(System.in);
@@ -11,8 +12,12 @@ public class User_Request {
         Address=input.nextLine();
         return Address;
     }
+
     public User_Request(){
         this.fileAddress=giveAddress();
     }
 
+    public String getFileAddress() {
+        return fileAddress;
+    }
 }
