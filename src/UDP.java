@@ -9,6 +9,8 @@ public class UDP implements Runnable {
     private DatagramSocket udpsocket;
     private InetAddress serverAddress;
     private int udpport;
+    private String input;
+    private String output;
 
     private Scanner scanner;
 
@@ -24,7 +26,7 @@ public class UDP implements Runnable {
     //udp server making connection
     public void udpserver() throws Exception {
         System.out.println("-- Running UDP Server at " + InetAddress.getLocalHost() + "--");
-        String msg;
+        //String msg;
 
         while (true) {
 
@@ -33,10 +35,10 @@ public class UDP implements Runnable {
 
             // blocks until a packet is received
             udpsocket.receive(packet);
-            msg = new String(packet.getData()).trim();
+            this.input = new String(packet.getData()).trim();
 
             System.out.println(
-                    "Message from " + packet.getAddress().getHostAddress() + ": " + msg);
+                    "Message from " + packet.getAddress().getHostAddress() + ": " + this.input);
         }
     }
 
